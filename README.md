@@ -1,2 +1,2 @@
-# ShowAndTellPortfolio
-My portfolio for sharing with others.
+# MSInfoPull
+I created this Java program some time ago for a gig I was working. It really helped save some time so I could focus on more important system administrator issues and not pulling IRQ's, and CPU/RAM info for 300+ Windows servers. MSInfoPull is an automated program to run MSInfo32.exe, which can gather numerous information from servers in your environment remotely. It's meant to be run via a command line start. Be sure you have the right java packages installed and that you are running this program from an account that has the right security privileges in the Domain and on the Servers you want to pull MSinfo from.
