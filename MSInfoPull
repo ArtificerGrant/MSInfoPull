@@ -1,0 +1,87 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.Scanner;
+import java.io.IOException;
+import java.lang.Thread;
+
+
+
+public class Main extends Thread {
+		public void run(){
+		System.out.println("Please provide a Server list file location path to begin MSInfo Pull. MSInfo files are saved in the C:/Temp Dir.");
+		Scanner sc = new Scanner(System.in);
+		String s = sc.next();
+		try{
+		FileReader file = new FileReader(s);
+		BufferedReader reader = new BufferedReader(file);
+        String b = null;
+		while((b = reader.readLine()) != null) {
+		try{
+			String txt = ".txt";
+			String ReportSaveLocation = " /report C:\\temp\\";
+			String Report = ReportSaveLocation + b + txt;
+			String DoubleSlash = "\\" + "\\";
+			String Command = "start msinfo32.exe /computer " + DoubleSlash + b + Report;
+			Runtime.getRuntime().exec("C:\\Windows\\System32\\cmd.exe /c Start C:\\Windows\\System32\\cmd.exe " + Command);
+        try{
+        	Thread.sleep(180000);
+    		File fileFinder = new File("C:\\temp\\" + b + ".txt");
+        	if(fileFinder.exists() == false){
+        		for(int i = 1; i <= 45; i++){
+        			System.out.println("fileFinder executed:" + i + " times." + b);
+        		try{
+        			Thread.sleep(20000);
+        		} catch (InterruptedException e){
+        			e.printStackTrace();
+        		}
+        		if(fileFinder.exists()){
+        			System.out.println("File now exists. Continuing MSInfo Pull.");
+        			break;
+        		}
+        		       	}
+        		
+        	}
+        	
+            if(fileFinder.exists()){
+        		continue;
+        	}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}        	
+		
+		}
+		
+		      catch(Exception e){
+				System.out.println("The following Server(s) can't be found" + reader.readLine());
+				run();
+	}
+
+		}
+		reader.close();
+		sc.close();
+		}
+		
+		     catch(Exception a){
+			   System.out.println("The path entered was not found or is not a local file path.");
+			run();
+		}
+			finally{
+		System.out.println("MSinfo Reporting complete.");
+		}  
+		
+		}
+	
+	
+
+		
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		
+		Main m = new Main();
+		Thread t = new Thread(m);
+		t.start();
+		
+	
+}
+	}
